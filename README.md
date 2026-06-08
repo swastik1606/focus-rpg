@@ -8,3 +8,4 @@ A gamified productivity Chrome Extension. Turn your browsing habits into an RPG-
 3) Click "Load Unpacked", then select this folder
 4) Pin the extension and open the side panel
 
+    

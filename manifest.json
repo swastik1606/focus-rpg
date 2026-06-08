@@ -1,0 +1,52 @@
+{
+    "manifest_version": 3,
+    "name": "Focus RPG",
+    "version": "1.0.0",
+    "description": "Turn your browsing habits into a RPG.",
+    "icons": {
+        "16": "assets/icons/icon16.png",
+        "48": "assets/icons/icon48.png",
+        "128": "assets/icons/icon128"
+    },
+    "background": {
+        "service_worker": "background.js"
+    },
+    "content_scripts": [
+        {
+            "matches": [
+                "<all_urls>"
+            ],
+            "js": [
+                "content.js"
+            ],
+            "css": [
+                "conetent.css"
+            ],
+            "run_at": "document_idle"
+        }
+    ],
+    "side_panel": {
+        "default_path": "sidepanel/panel.html"
+    },
+    "options_ui": {
+        "page": "options/options.html",
+        "open_in_tab": true
+    },
+    "permissions": [
+        "storage",
+        "tabs",
+        "sidePanel",
+        "alarms",
+        "activeTab"
+    ],
+    "host_permissions": [
+        "<all_urls>"
+    ],
+    "action": {
+        "default_title": "Focus RPG",
+        "default_icon": {
+            "16": "assets/icons/icon16.png",
+            "48": "assets/icons/icon48.png"
+        }
+    }
+}
