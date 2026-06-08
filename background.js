@@ -190,5 +190,70 @@ async function checkAchievements() {
         focus_master: (state.totalFocusSeconds || 0)>=3600
     }
 
+chrome.runtime.onMessage.addListener((msg,sender,sendResponse) => {
+    handleMessage(msg).then(sendResponse);
+    return true;
+});
+
+async function handleMessage(msg){
+    const state=await getState();
+    switch(msg.type) {
+        case "GET_STATE":
+            return state;
+        case "BUY_ITEM": {
+            const item=state.store.find(i=>i.id===msg.itemId);
+            if (!item || state.focusPoints < item.cost || state.ownedItems.includes(item.id)) {
+                return { success: false};
+            }
+
+            const achievements={ ...state.achievements};
+            if (achievements.buy_item) achievements.buy_item.unclocked=true;
+            await chrome.storage.local.set({
+                focusPoints:state.focusPoints-item.cost,
+                ownedItems: [...state.ownedItems, item.id],
+                achievements
+            });
+            broadcastUpdate();
+            return {success:true};
+        }
+        case "EQUIP_ITEM": {
+            const item=state.store.find(i=>i.id===msg.itemId);
+            if (!item || !state.ownedItems.includes(item.id)) return {success:false};
+            await chrome.storage.local.set({
+                petCosmetics: {...state.petCosmetics, [item.type]:item.id},
+            });
+            broadcastUpdate();
+            return {success:true};
+        }
+        case "SAVE_SETTINGS": {
+            await chrome.storage.local.set({
+                productiveSites:msg.productiveSites,
+                distractingSites: msg.distractingSites,
+                distractingThresholdMinutes: msg.distractingThresholdMinutes,
+                dailyFocusGoalSeconds: msg.dailyFocusGoalSeconds
+            });
+            return {success:true};
+        }
+        case "RESET_STATE": {
+            await chrome.storage.local.set(DEFAULT_STATE);
+            broadcastUpdate();
+            return {success:true};
+        }
+        default:
+            return{success:false};
+    }
+}
+
+chrome.action.onClicked.addListener((tab)=> {
+    chrome.sidePanel.open({windowId:tab.windowId});
+});
+
+async function getState() {
+    return chrome.storage.local.get(null);
+}
+
+function broadcastUpdate() {
+    chrome.runtime.sendMessage({type:"STATE_UPDATE"}).catch(()=>{});
+}
 
 }
