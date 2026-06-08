@@ -48,5 +48,8 @@
             "16": "assets/icons/icon16.png",
             "48": "assets/icons/icon48.png"
         }
+    },
+    "content_security_policy": {
+    "extension_pages": "script-src 'self'; object-src 'self'; style-src 'self' https://cdnjs.cloudflare.com; font-src 'self' https://cdnjs.cloudflare.com"
     }
 }

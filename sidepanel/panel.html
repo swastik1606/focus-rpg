@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Focus RPG</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="panel.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+
+<body>
+    <div id="app">
+
+        <header class="header">
+            <div class="header-left">
+                <span class="logo"><i class="fa-solid fa-gamepad" style="color: rgb(0, 0, 0);"></i></span>
+                <span class="app-name">Focus RPG</span>
+            </div>
+            <button class="settings-btn" id="openOptions" title="Dashboard">
+                <i class="fa-solid fa-gear" style="color: rgb(0, 0, 0);"></i>
+            </button>
+        </header>
+
+        <div class="pet-zone" id="petZone">
+            <div class="pet-container">
+                <div class="pet-emoji id=petEmoji">🐣</div>
+                <div class="pet-hat" id="pet-hat"></div>
+            </div>
+            <div class="pet-name" id="petName">Byte</div>
+        </div>
+
+        <div class="stats-bar">
+            <div class="stat-block">
+                <div class="stat-label">
+                    <span>Health</span>
+                    <span id="healthVal">100</span>
+                </div>
+                <div class="bar-track">
+                    <div class="bar-fill health-fill" id="healthBar"></div>
+                </div>
+            </div>
+
+            <div class="stat-block">
+                <div class="stat-label">
+                    <span>⚡ XP (Lv.<span id="levelVal">1</span>)</span>
+                    <span id="xpVal">0</span>
+                </div>
+                <div class="bar-track">
+                    <div class="bar-fill xp-fill" id="xpBar"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="currency-row">
+            <div class="fp-badge">
+                <span class="fp-icon"><i class="fa-regular fa-money-bill-1" style="color: rgb(0, 0, 0);"></i></span>
+                <span id="fpVal">0</span>
+                <span class="fp-label">FP</span>
+            </div>
+            <div class="status-badge" id="statusBade">
+                <span id="statusDot" class="dot neutral"></span>
+                <span id="statusText">Neutral</span>
+            </div>
+        </div>
+
+        <div class="streak-row">
+            <div class="streak-block">
+                <span class="streak-icon">🔥</span>
+                <div>
+                    <div class="streak-num" id="streakVal">0</div>
+                    <div class="streak-label">day streak</div>
+                </div>
+            </div>
+            <div class="goal-block">
+                <div class="goal-label">Daily Goal</div>
+                <div class="bar-track">
+                    <div class="bar-fill goal-fill" id="goalBar"></div>
+                </div>
+                <div class="goal-text" id="goalText">0 / 4h</div>
+            </div>
+        </div>
+
+        <div class="log-section">
+            <div class="log-title">Session Log</div>
+            <div class="log-feed" id="logFeed">
+                <div class="log-empty">Start browing to earn FP...</div>
+            </div>
+        </div>
+
+    </div>
+    <script src="panel.js"></script>
+</body>
+</html>
